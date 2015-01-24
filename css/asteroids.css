@@ -1,0 +1,19 @@
+canvas {
+  background-color: #444;
+  padding: 10px;
+  border: 10px solid #BBB;
+  /*position: relative;
+  margin: 0 auto;*/
+  display: inline;
+}
+
+.container {
+  width: 100%;
+  text-align: center
+}
+
+h3 {
+  text-align: center;
+  font-size: 36;
+  font-family: 'Hammersmith One', sans-serif;
+}

@@ -6,18 +6,25 @@
     <script src="lib/movingObject.js"></script>
     <script src="lib/asteroid.js"></script>
     <script src="lib/dummyAsteroid.js"></script>
+    <script src="lib/mergingAsteroid.js"></script>
     <script src="lib/ship.js"></script>
     <script src="lib/gameView.js"></script>
     <script src="lib/keymaster.js"></script>
     <script src="lib/jquery-2.1.1.js"></script>
-    <style type="text/css" media="screen">
-      canvas { background-color: black; }
-    </style>
+    <link rel="stylesheet" type="text/css" href="css/asteroids.css">
+    <link href='http://fonts.googleapis.com/css?family=Hammersmith+One' rel='stylesheet' type='text/css'>
+    <title>'Bowbbles</title>
+
+    <audio id="song" src="assets/Yosi Horikawa - Bubbles.mp3" preload="auto" loop="loop"></audio>
+    <audio id="popSound" src="assets/final-pop-mp3-vs.mp3"></audio>
   </head>
 
   <body>
-    <canvas id="game-canvas" height="600" width="600" ></canvas>
-
+    <br>
+    <h3>'Bowbbles</h3>
+    <nav class="container">
+      <canvas id="game-canvas" height="600" width="600" ></canvas>
+    </nav>
     <script>
       var canvasEl = document.getElementsByTagName("canvas")[0];
       var g = new Asteroids.Game(canvasEl);
