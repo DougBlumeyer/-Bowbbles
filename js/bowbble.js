@@ -13,6 +13,7 @@
     this.game = params.game;
     this.clr = params.clr;
     this.targetClr = params.targetClr;
+    this.merging = false;
   };
 
   Bowbble.prototype.updateClr = function() {
@@ -27,12 +28,6 @@
       }
     }
   }
-
-  // function drawPiece(x, y, r, ctx) {
-  //   ctx.beginPath();
-  //   ctx.arc(x, y, r, 0, TWO_PI);
-  //   ctx.fill();
-  // }
 
   Bowbble.prototype.calcRenderColor = function() {
     renderClr = "#";
@@ -58,69 +53,21 @@
 
   Bowbble.prototype.draw = function(ctx) {
     var renderClr = this.calcRenderColor();
-
     ctx.globalAlpha = 0.75;
     ctx.fillStyle = renderClr;
     ctx.shadowColor = renderClr;
     ctx.shadowBlur = 3;
-
     ctx.beginPath();
     ctx.arc(this.pos[0], this.pos[1], this.radius, 0, TWO_PI);
     ctx.fill();
-
-    // drawPiece(this.pos[0], this.pos[1], this.radius, ctx);
-
-    //spilling off the left
-    // if (this.pos[0] < this.radius) {
-    //   //console.log("left");
-    //   drawPiece(this.pos[0] + DIM_X, this.pos[1], this.radius, ctx);
-    // }
-    // //spilling off the right
-    // if (this.pos[0] > DIM_X - this.radius) {
-    //   //console.log("right");
-    //   drawPiece(this.pos[0] - DIM_X, this.pos[1], this.radius, ctx);
-    // }
-    // //spilling off the top
-    // if (this.pos[1] < this.radius) {
-    //   //console.log("top");
-    //   drawPiece(this.pos[0], this.pos[1] + DIM_Y, this.radius, ctx);
-    // }
-    // //spilling off the bottom
-    // if (this.pos[1] > DIM_Y - this.radius) {
-    //   //console.log("bottom");
-    //   drawPiece(this.pos[0], this.pos[1] - DIM_Y, this.radius, ctx);
-    // }
-    // //spilling over bottom right corner
-    // if (this.pos[1] > DIM_Y - this.radius && this.pos[0] > DIM_X - this.radius) {
-    //   //console.log("bottom right");
-    //   drawPiece(this.pos[0] - DIM_X, this.pos[1] - DIM_Y, this.radius, ctx);
-    // }
-    // //spilling over top left corner
-    // if (this.pos[1] < this.radius && this.pos[0] < this.radius) {
-    //   //console.log("top left");
-    //   drawPiece(this.pos[0] + DIM_X, this.pos[1] + DIM_Y, this.radius, ctx);
-    // }
-    // //spilling over bottom left corner
-    // if (this.pos[1] > DIM_Y - this.radius && this.pos[0] < this.radius) {
-    //   //console.log("bottom left");
-    //   drawPiece(this.pos[0] + DIM_X, this.pos[1] - DIM_Y, this.radius, ctx);
-    // }
-    // //spilling over top right corner
-    // if (this.pos[1] < this.radius && this.pos[0] > DIM_X - this.radius) {
-    //   //console.log("top right");
-    //   drawPiece(this.pos[0] - DIM_X, this.pos[1] + DIM_Y, this.radius, ctx);
-    // }
   };
 
   Bowbble.prototype.move = function() {
-    // this.pos = this.game.wrap([
-    //   this.pos[0] + this.vel[0],
-    //   this.pos[1] + this.vel[1]
-    // ]);
     this.pos = [this.pos[0] + this.vel[0], this.pos[1] + this.vel[1]];
   };
 
   Bowbble.prototype.isCollidedWith = function(otherObject) {
+    if (this.merging) return false;
     var dist = Bowbbles.Util.dist(this.pos, otherObject.pos);
     if (this.radius > otherObject.radius) {
       return dist < this.radius;
@@ -130,15 +77,18 @@
   };
 
   Bowbble.prototype.isCollidedWithPos = function(pos) {
+    if (this.merging) return false;
     var dist = Bowbbles.Util.dist(this.pos, pos);
     return dist < this.radius;
   };
 
   Bowbble.prototype.updateSize = function() {
-    if (this.targetRadius > this.radius + 4) {
-      this.radius += 4;
-    } else if (this.targetRadius < this.radius - 16) {
-      this.radius -= 16;
+    if (this.targetRadius > this.radius) {
+      this.radius += (this.targetRadius - this.radius)/10;
+    } else if (this.targetRadius - 0.1 < this.radius * 2/3) {
+      this.radius = this.radius * 2/3;
+    } else if (this.targetRadius === 0) {
+      this.radius = 0;
     }
   };
 

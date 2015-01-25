@@ -29,8 +29,12 @@
     }
   };
 
-  Bowbbles.Util.randomPos = function(dim_x, dim_y) {
-    return [Math.floor(Math.random() * dim_x), Math.floor(Math.random() * dim_y)];
+  Bowbbles.Util.randomPos = function() {
+    do {
+      var pos = [Math.floor(Math.random() * DIM_X),
+                 Math.floor(Math.random() * DIM_Y)];
+    } while (Bowbbles.Util.dist(pos, [DIM_X / 2, DIM_Y / 2]) > DIM_X / 2)
+    return pos;
   }
 
   Bowbbles.Util.randomClr = function() {

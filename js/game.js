@@ -9,9 +9,6 @@
   };
 
   Game.prototype.step = function(ctx) {
-    // console.log(this.bowbbles.length);
-     //console.log(this.dummyBowbbles.length);
-    // console.log(this.avgBowbbleRadius());
     ctx.clearRect(0, 0, DIM_X, DIM_Y);
     this.moveObjects(ctx);
     this.checkCollisions();
@@ -75,10 +72,10 @@
     var jProportion = 2 - iProportion;
 
     var proportionalAvgVel = [
-      (bowbbleI.vel[0]*iProportion +
-       bowbbleJ.vel[0]*jProportion) / 2,
-      (bowbbleI.vel[1]*iProportion +
-       bowbbleJ.vel[1]*jProportion) / 2
+      (bowbbleI.vel[0] * iProportion +
+       bowbbleJ.vel[0] * jProportion) / 2,
+      (bowbbleI.vel[1] * iProportion +
+       bowbbleJ.vel[1] * jProportion) / 2
     ];
 
     var combinedRadius = Math.sqrt((
@@ -86,45 +83,47 @@
       (Math.PI * Math.pow(bowbbleJ.targetRadius, 2))
     )/Math.PI);
 
-        var combinedColor = [
-        Math.ceil(
-          (bowbbleI.targetClr[0]*iProportion +
-            bowbbleJ.targetClr[0]*jProportion) / 2
-          ),
-          Math.ceil(
-            (bowbbleI.targetClr[1]*iProportion +
-              bowbbleJ.targetClr[1]*jProportion) / 2
-            ),
-            Math.ceil(
-              (bowbbleI.targetClr[2]*iProportion +
-                bowbbleJ.targetClr[2]*jProportion) / 2
-              ),
-              Math.ceil(
-                (bowbbleI.targetClr[3]*iProportion +
-                  bowbbleJ.targetClr[3]*jProportion) / 2
-                ),
-                Math.ceil(
-                  (bowbbleI.targetClr[4]*iProportion +
-                    bowbbleJ.targetClr[4]*jProportion) / 2
-                  ),
-                  Math.ceil(
-                    (bowbbleI.targetClr[5]*iProportion +
-                      bowbbleJ.targetClr[5]*jProportion) / 2
-                    )
-                    ];
+    var combinedColor = [
+      Math.ceil(
+        (bowbbleI.targetClr[0] * iProportion +
+          bowbbleJ.targetClr[0] * jProportion) / 2
+      ),
+      Math.ceil(
+        (bowbbleI.targetClr[1] * iProportion +
+          bowbbleJ.targetClr[1] * jProportion) / 2
+      ),
+      Math.ceil(
+        (bowbbleI.targetClr[2] * iProportion +
+          bowbbleJ.targetClr[2] * jProportion) / 2
+      ),
+      Math.ceil(
+        (bowbbleI.targetClr[3] * iProportion +
+          bowbbleJ.targetClr[3] * jProportion) / 2
+      ),
+      Math.ceil(
+        (bowbbleI.targetClr[4] * iProportion +
+          bowbbleJ.targetClr[4] * jProportion) / 2
+      ),
+      Math.ceil(
+        (bowbbleI.targetClr[5] * iProportion +
+          bowbbleJ.targetClr[5] * jProportion) / 2
+      )
+    ];
 
-                    if (iArea > jArea) {
-                      bowbbleI.vel = proportionalAvgVel;
-                      bowbbleI.targetRadius = combinedRadius;
-                      bowbbleI.targetClr = combinedColor;
-                      this.remove(j);
-                    } else {
-                      bowbbleJ.vel = proportionalAvgVel;
-                      bowbbleJ.targetRadius = combinedRadius;
-                      bowbbleJ.targetClr = combinedColor;
-                      this.remove(i);
-                    }
-  }
+    if (iArea > jArea) {
+      bowbbleI.vel = proportionalAvgVel;
+      bowbbleI.targetRadius = combinedRadius;
+      bowbbleI.targetClr = combinedColor;
+      bowbbleJ.merging = true;
+      bowbbleJ.targetRadius = 0;
+    } else {
+      bowbbleJ.vel = proportionalAvgVel;
+      bowbbleJ.targetRadius = combinedRadius;
+      bowbbleJ.targetClr = combinedColor;
+      bowbbleI.merging = true;
+      bowbbleI.targetRadius = 0;
+    }
+  };
 
   Game.prototype.asplodeSomeBowbbles = function(clrs, redRadius, greenRadius, blueRadius, originalRadius, originalPos, greenAndBlueAvg, blueAndRedAvg, redAndGreenAvg, redAmt, greenAmt, blueAmt) {
     if (redRadius > 3 ) {
@@ -135,13 +134,13 @@
           radius: originalRadius,
           targetRadius: redRadius,
           game: this,
-          clr: clrs,
-          targetClr: [Math.floor(Math.floor(redAmt / 16)*4),
-          Math.floor(Math.floor(redAmt % 16)*4),
-          Math.floor(Math.floor(greenAndBlueAvg / 16)/2),
-          Math.floor(Math.floor(greenAndBlueAvg % 16)/2),
-          Math.floor(Math.floor(greenAndBlueAvg / 16)/2),
-          Math.floor(Math.floor(greenAndBlueAvg % 16)/2)
+          clr: clrs.slice(),
+          targetClr: [Math.floor(Math.floor(redAmt / 16)*1.5),
+            Math.floor(Math.floor(redAmt % 16)*1.5),
+            Math.floor(Math.floor(greenAndBlueAvg / 16)),
+            Math.floor(Math.floor(greenAndBlueAvg % 16)),
+            Math.floor(Math.floor(greenAndBlueAvg / 16)),
+            Math.floor(Math.floor(greenAndBlueAvg % 16))
           ]
         })
       );
@@ -154,13 +153,13 @@
           radius: originalRadius,
           targetRadius: greenRadius,
           game: this,
-          clr: clrs,
-          targetClr: [Math.floor(Math.floor(blueAndRedAvg / 16)/2),
-          Math.floor(Math.floor(blueAndRedAvg % 16)/2),
-          Math.floor(Math.floor(greenAmt / 16)*4),
-          Math.floor(Math.floor(greenAmt % 16)*4),
-          Math.floor(Math.floor(blueAndRedAvg / 16)/2),
-          Math.floor(Math.floor(blueAndRedAvg % 16)/2)
+          clr: clrs.slice(),
+          targetClr: [Math.floor(Math.floor(blueAndRedAvg / 16)),
+            Math.floor(Math.floor(blueAndRedAvg % 16)),
+            Math.floor(Math.floor(greenAmt / 16)*1.5),
+            Math.floor(Math.floor(greenAmt % 16)*1.5),
+            Math.floor(Math.floor(blueAndRedAvg / 16)),
+            Math.floor(Math.floor(blueAndRedAvg % 16))
           ]
         })
       );
@@ -173,13 +172,13 @@
           radius: originalRadius,
           targetRadius: blueRadius,
           game: this,
-          clr: clrs,
-          targetClr: [Math.floor(Math.floor(redAndGreenAvg / 16)/2),
-          Math.floor(Math.floor(redAndGreenAvg % 16)/2),
-          Math.floor(Math.floor(redAndGreenAvg / 16)/2),
-          Math.floor(Math.floor(redAndGreenAvg % 16)/2),
-          Math.floor(Math.floor(blueAmt / 16)*4),
-          Math.floor(Math.floor(blueAmt % 16)*4)
+          clr: clrs.slice(),
+          targetClr: [Math.floor(Math.floor(redAndGreenAvg / 16)),
+            Math.floor(Math.floor(redAndGreenAvg % 16)),
+            Math.floor(Math.floor(redAndGreenAvg / 16)),
+            Math.floor(Math.floor(redAndGreenAvg % 16)),
+            Math.floor(Math.floor(blueAmt / 16)*1.5),
+            Math.floor(Math.floor(blueAmt % 16)*1.5)
           ]
         })
       );
@@ -220,12 +219,12 @@
     if (this.bowbbles.length < 400) {
       this.bowbbles.push(
         new Bowbbles.Bowbble({
-          pos: Bowbbles.Util.randomPos(DIM_X, DIM_Y),
+          pos: Bowbbles.Util.randomPos(),
           vel: Bowbbles.Util.randomVec(),
           radius: 1,
           targetRadius: Math.random() * 15 + 15,
           game: this,
-          clr: BACKGROUND_GREY.slice(),
+          clr: [15, 15, 15, 15, 15, 15],
           targetClr: Bowbbles.Util.randomClr()
         })
       );
@@ -235,7 +234,7 @@
   Game.prototype.cleanupLostBowbbles = function() {
     var bowbblesToCleanup = [];
     for (var i = 0; i < this.bowbbles.length; i++ ) {
-      if (this.bowbbles[i].isOffscreen()) {
+      if (this.bowbbles[i].isOffscreen() || this.bowbbles[i].radius < 1) {
         bowbblesToCleanup.unshift(i);
       }
     };
