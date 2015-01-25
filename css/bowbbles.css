@@ -1,0 +1,91 @@
+canvas {
+  background-color: #444;
+  padding: 10px;
+  border: 10px solid #BBB;
+  display: inline;
+}
+
+.container {
+  width: 100%;
+  text-align: center
+}
+
+header {
+  text-align: center;
+  font-size: 36;
+  font-family: 'Amaranth', sans-serif;
+  color: #444;
+}
+
+img {
+  display: block;
+  margin: 40px auto;
+  cursor: pointer;
+}
+
+.modal {
+  display: none;
+}
+
+.modal.is-open {
+  display: block;
+}
+
+.modal-screen {
+  position: fixed;
+  background: rgba(0, 0, 0, 0.7);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+
+.modal-form {
+  position: absolute;
+  margin: 200px auto;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 360px;
+  height: 200px;
+  background: #eee;
+  z-index: 3;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 36;
+  font-family: 'Amaranth', sans-serif;
+  color: #444;
+}
+
+article {
+  position: absolute;
+  text-align: center;
+  top: 45%;
+  transform: translateX(-50%);
+  left: 23%;
+  transform: translateY(-50%);
+}
+
+.modal-form span {
+  font-size: 20;
+  color: #444;
+}
+
+.modal-close {
+  position: absolute;
+  left: 50%;
+  top: 66%;
+  transform: translateX(-50%);
+  cursor: pointer;
+}
+
+.modal-close:hover {
+  color: #d44;
+}
+
+aside {
+  font-size: 16;
+  font-family: 'Amaranth', sans-serif;
+  text-align: center;
+  color: #444;
+}
