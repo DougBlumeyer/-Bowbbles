@@ -14,6 +14,7 @@
     this.clr = params.clr;
     this.targetClr = params.targetClr;
     this.merging = false;
+    this.opacity = 0.8;
   };
 
   Bowbble.prototype.updateClr = function() {
@@ -53,7 +54,11 @@
 
   Bowbble.prototype.draw = function(ctx) {
     var renderClr = this.calcRenderColor();
-    ctx.globalAlpha = 0.75;
+    if (this.merging && this.opacity > 0.2) {
+      this.opacity -= 0.2;
+      console.log(this.opacity);
+    }
+    ctx.globalAlpha = this.opacity;
     ctx.fillStyle = renderClr;
     ctx.shadowColor = renderClr;
     ctx.shadowBlur = 3;
