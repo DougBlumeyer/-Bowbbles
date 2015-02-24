@@ -2,11 +2,14 @@
 
 Rainbowbbles is a simple to play & entrancingly beautiful game.
 
+
+[Check it out live here:]: http://rainbowbbles.com
+
 <b>Audio</b>
 - The pitch of popping a 'bowbble correlates with its size
 - The popping pitches are quantized to the same musical mode as the background music uses, allowing the player to essentially play the 'bowbbles as a musical instrument
 
-<b>Visual & Physics/b>
+<b>Visual & Physics</b>
 - 'Bowbbles pop into three smaller 'bowbbles, one for each of the RGB color components
 - These new smaller 'bowbbles are proportional both in size and color to the amount of their color in the popped 'bowbble
 - When 'bowbbles collide (ones center crosses another's edge) they merge into a new 'bowbble with merged size, and weighted average color concentration & velocity vector
