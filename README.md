@@ -2,8 +2,8 @@
 
 Rainbowbbles is a simple to play & entrancingly beautiful game.
 
-
-[Check it out live here:]: http://rainbowbbles.com
+[Check it out live here:][live-link]
+[live-link]: http://rainbowbbles.com
 
 <b>Audio</b>
 - The pitch of popping a 'bowbble correlates with its size
