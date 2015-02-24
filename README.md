@@ -2,7 +2,7 @@
 
 Rainbowbbles is a simple to play & entrancingly beautiful game.
 
-[Check it out live here:][live-link]
+[Check it out live here.][live-link]
 [live-link]: http://rainbowbbles.com
 
 <b>Audio</b>
