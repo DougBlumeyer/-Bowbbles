@@ -46,6 +46,7 @@ img {
   margin: 200px auto;
   left: 50%;
   transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
   width: 360px;
   height: 200px;
   background: #eee;
@@ -62,8 +63,10 @@ article {
   text-align: center;
   top: 45%;
   transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
   left: 23%;
   transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
 }
 
 .modal-form span {
@@ -76,6 +79,7 @@ article {
   left: 50%;
   top: 66%;
   transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
   cursor: pointer;
 }
 
