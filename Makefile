@@ -1,2 +1,5 @@
 deploy:
-	cf push rainbowbbles
+	./bin/deploy.sh
+
+setup:
+	./bin/setup.sh
